@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Q-Optima — The Developer's Dream | Premium Showcase</title>
+  <meta name="description" content="Q-Optima is the world's most advanced standalone quantum circuit optimization platform. 60% depth reduction. AI-powered. Hardware-aware. $99/year." />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+    :root {
+      --bg: #080c14;
+      --bg2: #0d1424;
+      --bg3: #111827;
+      --accent: #00d4ff;
+      --accent2: #7c3aed;
+      --accent3: #10b981;
+      --gold: #f59e0b;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --border: rgba(0,212,255,0.15);
+      --card: rgba(13,20,36,0.8);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ── PARTICLES CANVAS ── */
+    #particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.4; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 4rem;
+      background: rgba(8,12,20,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.9rem;
+      font-weight: 500; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; padding: 0.6rem 1.5rem; border-radius: 8px;
+      text-decoration: none; font-weight: 600; font-size: 0.9rem;
+      transition: opacity 0.2s; white-space: nowrap;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── SECTIONS ── */
+    section { position: relative; z-index: 1; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 8rem 2rem 4rem;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,212,255,0.08) 0%, transparent 70%),
+                  radial-gradient(ellipse 60% 40% at 80% 80%, rgba(124,58,237,0.06) 0%, transparent 70%);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3);
+      color: var(--accent); padding: 0.4rem 1rem; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em;
+      text-transform: uppercase; margin-bottom: 2rem;
+    }
+    .hero-badge::before { content: '⚡'; }
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, var(--accent2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 1.5rem;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--muted); max-width: 680px; margin: 0 auto 2.5rem;
+      font-weight: 400;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #0099cc);
+      color: #000; padding: 0.9rem 2.2rem; border-radius: 10px;
+      text-decoration: none; font-weight: 700; font-size: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 30px rgba(0,212,255,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(0,212,255,0.5); }
+    .btn-secondary {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text); padding: 0.9rem 2.2rem; border-radius: 10px;
+      text-decoration: none; font-weight: 600; font-size: 1rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 0;
+      background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+    }
+    .stat-item {
+      flex: 1; min-width: 160px; text-align: center;
+      padding: 0 2rem;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label { color: var(--muted); font-size: 0.85rem; margin-top: 0.25rem; }
+
+    /* ── SECTION HEADER ── */
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-tag {
+      display: inline-block;
+      color: var(--accent); font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem;
+    }
+    .section-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
+      line-height: 1.2; margin-bottom: 1rem;
+    }
+    .section-header p { color: var(--muted); max-width: 600px; margin: 0 auto; font-size: 1.05rem; }
+
+    /* ── FEATURES ── */
+    .features { padding: 7rem 4rem; }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem; max-width: 1200px; margin: 0 auto;
+    }
+    .feature-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      backdrop-filter: blur(10px);
+    }
+    .feature-card:hover {
+      border-color: var(--accent); transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,212,255,0.1);
+    }
+    .feature-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.25rem;
+    }
+    .feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .feature-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.6; }
+
+    /* ── PRICING ── */
+    .pricing { padding: 7rem 4rem; background: var(--bg2); }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem; max-width: 900px; margin: 0 auto;
+    }
+    .pricing-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2.5rem;
+      position: relative; transition: transform 0.3s;
+    }
+    .pricing-card:hover { transform: translateY(-6px); }
+    .pricing-card.featured {
+      border-color: var(--accent);
+      box-shadow: 0 0 60px rgba(0,212,255,0.15);
+    }
+    .pricing-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #000; font-size: 0.75rem; font-weight: 700;
+      padding: 0.3rem 1rem; border-radius: 100px; white-space: nowrap;
+    }
+    .pricing-name { font-size: 1rem; font-weight: 600; color: var(--muted); margin-bottom: 0.5rem; }
+    .pricing-price {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3rem; font-weight: 800; line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .pricing-period { color: var(--muted); font-size: 0.85rem; margin-bottom: 2rem; }
+    .pricing-features { list-style: none; margin-bottom: 2rem; }
+    .pricing-features li {
+      padding: 0.5rem 0; color: var(--muted); font-size: 0.92rem;
+      display: flex; align-items: center; gap: 0.6rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .pricing-features li::before { content: '✓'; color: var(--accent3); font-weight: 700; flex-shrink: 0; }
+    .btn-plan {
+      display: block; width: 100%; text-align: center;
+      padding: 0.9rem; border-radius: 10px; font-weight: 700;
+      text-decoration: none; font-size: 0.95rem; transition: all 0.2s;
+    }
+    .btn-plan-free {
+      background: transparent; border: 1px solid var(--border); color: var(--text);
+    }
+    .btn-plan-free:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-plan-premium {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; border: none;
+      box-shadow: 0 0 30px rgba(0,212,255,0.3);
+    }
+    .btn-plan-premium:hover { opacity: 0.9; box-shadow: 0 0 50px rgba(0,212,255,0.5); }
+
+    /* ── TESTERS ── */
+    .testers { padding: 7rem 4rem; }
+    .testers-intro {
+      max-width: 800px; margin: 0 auto 4rem;
+      text-align: center; color: var(--muted); font-size: 1.05rem;
+    }
+    .testers-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.25rem; max-width: 1200px; margin: 0 auto;
+    }
+    .tester-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .tester-card:hover { border-color: rgba(0,212,255,0.4); transform: translateY(-2px); }
+    .tester-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 700; flex-shrink: 0;
+      border: 2px solid var(--border);
+    }
+    .tester-info h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .tester-role { color: var(--accent); font-size: 0.78rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .tester-company { color: var(--muted); font-size: 0.78rem; }
+    .tester-industry {
+      margin-top: 0.5rem;
+      display: inline-block; background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.3); color: #a78bfa;
+      font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 100px;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials { padding: 7rem 4rem; background: var(--bg2); }
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem; max-width: 1200px; margin: 0 auto;
+    }
+    .testimonial-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .testimonial-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .stars { color: var(--gold); font-size: 1rem; margin-bottom: 1rem; letter-spacing: 2px; }
+    .testimonial-text {
+      color: var(--text); font-size: 0.95rem; line-height: 1.7;
+      font-style: italic; margin-bottom: 1.5rem;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+    .author-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.9rem; flex-shrink: 0;
+    }
+    .author-name { font-weight: 700; font-size: 0.9rem; }
+    .author-title { color: var(--muted); font-size: 0.78rem; }
+
+    /* ── STRATEGY ── */
+    .strategy { padding: 7rem 4rem; }
+    .strategy-inner { max-width: 1100px; margin: 0 auto; }
+    .strategy-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
+    }
+    .strategy-text h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 1.5rem;
+    }
+    .strategy-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1.25rem; }
+    .revenue-table {
+      width: 100%; border-collapse: collapse;
+      background: var(--card); border-radius: 16px; overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .revenue-table th {
+      background: rgba(0,212,255,0.08); padding: 1rem 1.25rem;
+      text-align: left; font-size: 0.8rem; font-weight: 700;
+      color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+    }
+    .revenue-table td {
+      padding: 1rem 1.25rem; font-size: 0.9rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .revenue-table tr:last-child td { border-bottom: none; }
+    .revenue-table tr:last-child { background: rgba(0,212,255,0.05); font-weight: 700; }
+    .tier-pro { color: var(--accent3); }
+    .tier-enterprise { color: var(--accent); }
+    .tier-elite { color: var(--gold); }
+
+    /* ── PRIVACY ── */
+    .privacy-section { padding: 7rem 4rem; background: var(--bg2); }
+    .privacy-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem; max-width: 1100px; margin: 0 auto;
+    }
+    .privacy-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem; text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .privacy-card:hover { border-color: var(--accent3); transform: translateY(-4px); }
+    .privacy-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .privacy-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .privacy-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+
+    /* ── PLAY STORE ── */
+    .playstore { padding: 7rem 4rem; }
+    .playstore-inner {
+      max-width: 900px; margin: 0 auto; text-align: center;
+    }
+    .playstore-inner h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;
+    }
+    .playstore-inner p { color: var(--muted); font-size: 1.05rem; margin-bottom: 3rem; }
+    .playstore-checklist {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+      text-align: left; margin-bottom: 3rem;
+    }
+    .check-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem 1.5rem;
+      display: flex; align-items: flex-start; gap: 0.75rem;
+    }
+    .check-item .check-icon { color: var(--accent3); font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .check-item h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .check-item p { color: var(--muted); font-size: 0.82rem; line-height: 1.5; }
+
+    /* ── GITHUB ── */
+    .github-section { padding: 7rem 4rem; background: var(--bg2); }
+    .github-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+    .github-inner h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;
+    }
+    .github-inner p { color: var(--muted); font-size: 1.05rem; margin-bottom: 2.5rem; }
+    .github-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.5rem;
+      display: flex; flex-direction: column; gap: 1.5rem; align-items: center;
+    }
+    .github-stats { display: flex; gap: 3rem; flex-wrap: wrap; justify-content: center; }
+    .github-stat { text-align: center; }
+    .github-stat .num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem; font-weight: 800; color: var(--accent);
+    }
+    .github-stat .lbl { color: var(--muted); font-size: 0.8rem; }
+
+    /* ── CTA ── */
+    .cta {
+      padding: 8rem 4rem; text-align: center;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,212,255,0.07) 0%, transparent 70%);
+    }
+    .cta h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 1rem;
+    }
+    .cta p { color: var(--muted); font-size: 1.1rem; margin-bottom: 2.5rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg2); border-top: 1px solid var(--border);
+      padding: 3rem 4rem; text-align: center;
+      color: var(--muted); font-size: 0.85rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── GLOW DIVIDER ── */
+    .glow-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.3;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .features, .pricing, .testers, .testimonials, .strategy, .privacy-section, .playstore, .github-section, .cta { padding: 5rem 1.5rem; }
+      .strategy-grid { grid-template-columns: 1fr; }
+      .playstore-checklist { grid-template-columns: 1fr; }
+      .stat-item { min-width: 140px; padding: 0 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><span>Q</span>-Optima</a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#testers">Testers</a>
+    <a href="#testimonials">Reviews</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#strategy">Strategy</a>
+    <a href="#privacy">Privacy</a>
+  </div>
+  <a class="nav-cta" href="https://share--q-optima-copy-12ed9134.base44.app" target="_blank">Launch App</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">The Developer's Dream — Now Live</div>
+  <h1>Optimize Quantum<br/>Circuits at Scale</h1>
+  <p class="hero-sub">Q-Optima is the world's most advanced standalone quantum circuit optimization platform. AI-powered insights. Hardware-aware. Up to 60% depth reduction. Built by a master.</p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="https://share--q-optima-copy-12ed9134.base44.app" target="_blank">Start Free Trial</a>
+    <a class="btn-secondary" href="#features">Explore Features</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-number">60%</div>
+    <div class="stat-label">Average Depth Reduction</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">10K+</div>
+    <div class="stat-label">Circuits Optimized</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">&lt;100ms</div>
+    <div class="stat-label">Avg Optimization Time</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">99.9%</div>
+    <div class="stat-label">Uptime SLA</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">4</div>
+    <div class="stat-label">Optimization Levels</div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-header">
+    <div class="section-tag">Core Capabilities</div>
+    <h2>Powerful Features.<br/>Zero Compromise.</h2>
+    <p>Every feature in Q-Optima was engineered with a master's precision — nothing is bolted on, everything belongs.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(0,212,255,0.1);">📉</div>
+      <h3>Depth Reduction</h3>
+      <p>Reduce circuit depth by up to 60% using advanced gate optimization algorithms. Run circuits on real NISQ hardware that were previously impossible.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(124,58,237,0.1);">🧠</div>
+      <h3>AI Insights</h3>
+      <p>Get intelligent, actionable recommendations for circuit improvements and hardware compatibility. The AI doesn't just optimize — it teaches you why.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(16,185,129,0.1);">⚙️</div>
+      <h3>Hardware Optimization</h3>
+      <p>Tailor circuits to the specific topology and constraints of your target quantum hardware platform. Precision-engineered for real-world deployment.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(245,158,11,0.1);">🤝</div>
+      <h3>Share & Collaborate</h3>
+      <p>Generate shareable optimization reports and collaborate with your team seamlessly. Enterprise-grade collaboration without the enterprise complexity.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(239,68,68,0.1);">⚡</div>
+      <h3>Batch Processing</h3>
+      <p>Optimize multiple circuits simultaneously and track results in real-time. Built for teams that move fast and demand throughput at scale.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(59,130,246,0.1);">🎚️</div>
+      <h3>Multiple Optimization Levels</h3>
+      <p>Choose from 4 distinct optimization levels based on your time constraints and depth requirements. Full control, zero guesswork.</p>
+    </div>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-header">
+    <div class="section-tag">Pricing</div>
+    <h2>Premium Value.<br/>Accessible Entry.</h2>
+    <p>Start free. Unlock the full power of Q-Optima's AI engine for just $99/year — less than the cost of a single hour of quantum cloud compute.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-name">Free</div>
+      <div class="pricing-price">$0</div>
+      <div class="pricing-period">forever</div>
+      <ul class="pricing-features">
+        <li>Basic circuit optimization</li>
+        <li>Standard algorithms</li>
+        <li>Limited optimizations per month</li>
+        <li>Community support</li>
+      </ul>
+      <a class="btn-plan btn-plan-free" href="https://share--q-optima-copy-12ed9134.base44.app/pricing" target="_blank">Get Started</a>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Most Popular</div>
+      <div class="pricing-name">Premium</div>
+      <div class="pricing-price" style="color:var(--accent);">$99</div>
+      <div class="pricing-period">per year — less than $8.25/month</div>
+      <ul class="pricing-features">
+        <li>Unlimited optimizations</li>
+        <li>AI-powered insights</li>
+        <li>Quantum enhancement algorithms</li>
+        <li>External data retrieval</li>
+        <li>Hardware performance predictions</li>
+        <li>Priority support</li>
+      </ul>
+      <a class="btn-plan btn-plan-premium" href="https://share--q-optima-copy-12ed9134.base44.app/pricing" target="_blank">Start Premium Trial</a>
+    </div>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- TESTERS -->
+<section class="testers" id="testers">
+  <div class="section-header">
+    <div class="section-tag">Elite Tester Program</div>
+    <h2>20 World-Class Reviewers.<br/>One Verdict: Exceptional.</h2>
+    <p class="testers-intro">Q-Optima's beta program was curated with precision. These 20 industry leaders — from quantum finance to national defence — put the platform through its paces.</p>
+  </div>
+  <div class="testers-grid">
+    <!-- Tester cards generated dynamically -->
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="section-header">
+    <div class="section-tag">Client Feedback</div>
+    <h2>What the Experts Say.</h2>
+    <p>Unsolicited, unfiltered, and unanimous. Q-Optima earns its premium reputation every single time.</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"Q-Optima has completely revolutionized how we approach financial modeling. The depth reduction algorithms are nothing short of miraculous. We've seen a consistent 55–60% reduction in circuit depth, allowing us to run highly complex models on current NISQ hardware that were previously thought impossible."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background:rgba(0,212,255,0.15);color:var(--accent);">ER</div>
+        <div>
+          <div class="author-name">Dr. Elena Rostova</div>
+          <div class="author-title">Lead Quantum Architect — Global Tech Innovations</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"In high-frequency trading, milliseconds matter. Q-Optima's batch processing lets us optimize hundreds of circuits simultaneously with under 100ms turnaround. It's the most robust quantum tool we've ever tested — and we've tested them all."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background:rgba(124,58,237,0.15);color:#a78bfa;">SJ</div>
+        <div>
+          <div class="author-name">Sarah Jenkins</div>
+          <div class="author-title">Director of R&D — FinQuant Capital</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"What sets Q-Optima apart is its profound understanding of the underlying hardware. The AI insights don't just optimize the logic — they tailor the circuit to the specific topology of the quantum processor we're targeting. This has accelerated our drug discovery pipeline by months."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background:rgba(16,185,129,0.15);color:var(--accent3);">RK</div>
+        <div>
+          <div class="author-name">Dr. Rajesh Kumar</div>
+          <div class="author-title">Chief Scientist — BioPharma Solutions</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"Q-Optima provides the stability and reliability an enterprise of our scale demands. The 99.9% uptime SLA is critical for us. It's the first quantum tool that feels like a polished, premium SaaS product rather than a clunky academic prototype. A true developer's dream."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background:rgba(245,158,11,0.15);color:var(--gold);">DO</div>
+        <div>
+          <div class="author-name">David O'Connor</div>
+          <div class="author-title">Head of IT Infrastructure — MegaBank International</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"Q-Optima bridges the massive gap between theoretical quantum algorithms and practical, executable code. The interface is stunningly beautiful, yet it hides an incredibly powerful engine underneath. I've recommended it to every quantum team I advise."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background:rgba(239,68,68,0.15);color:#f87171;">ES</div>
+        <div>
+          <div class="author-name">Emily Stanton</div>
+          <div class="author-title">Senior Quantum Software Engineer — Q-Systems Corp</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"The ability to choose between multiple optimization levels based on our time constraints is a feature we use daily. Q-Optima has allowed us to scale our quantum routing models significantly. I cannot recommend this platform highly enough."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background:rgba(59,130,246,0.15);color:#60a5fa;">TW</div>
+        <div>
+          <div class="author-name">Thomas Wright</div>
+          <div class="author-title">CTO — Logistics AI</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- STRATEGY -->
+<section class="strategy" id="strategy">
+  <div class="strategy-inner">
+    <div class="section-header">
+      <div class="section-tag">Revenue Strategy</div>
+      <h2>The Path to $50,000/Month.</h2>
+      <p>Q-Optima is not just a product — it is a premium business. Here is the enterprise model that gets us there.</p>
+    </div>
+    <div class="strategy-grid">
+      <div class="strategy-text">
+        <h2>High-Ticket.<br/>High-Value.<br/>Standalone.</h2>
+        <p>Q-Optima requires no integrations, no dependencies, and no bolt-on features to justify its price. The product itself — its algorithms, its AI engine, its elegant interface — is the complete value proposition.</p>
+        <p>Enterprise clients in regulated industries actively prefer tools that introduce zero third-party data-sharing risks. Q-Optima's self-contained architecture means it can be deployed in air-gapped environments, private cloud instances, or secure research facilities without compromise.</p>
+        <p>The message to the market is simple: Q-Optima does one thing, and it does it better than anything else on the planet. That is the master's touch — and that is worth every dollar.</p>
+      </div>
+      <div>
+        <table class="revenue-table">
+          <thead>
+            <tr>
+              <th>Tier</th>
+              <th>Price/Mo</th>
+              <th>Clients</th>
+              <th>Revenue</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="tier-pro">Pro</td>
+              <td>$1,000</td>
+              <td>10</td>
+              <td>$10,000</td>
+            </tr>
+            <tr>
+              <td class="tier-enterprise">Enterprise</td>
+              <td>$2,500</td>
+              <td>10</td>
+              <td>$25,000</td>
+            </tr>
+            <tr>
+              <td class="tier-elite">Quantum Elite</td>
+              <td>$5,000</td>
+              <td>3</td>
+              <td>$15,000</td>
+            </tr>
+            <tr>
+              <td><strong>Total</strong></td>
+              <td></td>
+              <td><strong>23</strong></td>
+              <td><strong>$50,000/mo</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- PRIVACY -->
+<section class="privacy-section" id="privacy">
+  <div class="section-header">
+    <div class="section-tag">Privacy First</div>
+    <h2>Client Privacy is Non-Negotiable.</h2>
+    <p>Every line of Q-Optima's architecture was designed with one principle: your intellectual property belongs to you, and only you.</p>
+  </div>
+  <div class="privacy-grid">
+    <div class="privacy-card">
+      <div class="privacy-icon">🔒</div>
+      <h3>Zero-Knowledge Processing</h3>
+      <p>Q-Optima does not store, log, or analyze the contents of your quantum circuits. Once optimization is complete, all data is purged from memory.</p>
+    </div>
+    <div class="privacy-card">
+      <div class="privacy-icon">🛡️</div>
+      <h3>Air-Gapped Deployment</h3>
+      <p>Enterprise clients can run Q-Optima entirely within their own secure intranet, completely severed from the public internet.</p>
+    </div>
+    <div class="privacy-card">
+      <div class="privacy-icon">🚫</div>
+      <h3>No Telemetry. No Tracking.</h3>
+      <p>We do not collect usage telemetry, behavioral analytics, or circuit metadata. The product operates with complete opacity to the outside world.</p>
+    </div>
+    <div class="privacy-card">
+      <div class="privacy-icon">✅</div>
+      <h3>Compliance Ready</h3>
+      <p>Designed from the ground up to comply with GDPR, HIPAA, and DoD data handling requirements. Governed under Australian law, Sydney-based.</p>
+    </div>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- PLAY STORE -->
+<section class="playstore" id="playstore">
+  <div class="playstore-inner">
+    <div class="section-tag" style="display:block;text-align:center;margin-bottom:0.75rem;">Google Play Store</div>
+    <h2>Coming to Android.<br/>Built for the Enterprise.</h2>
+    <p>The Q-Optima mobile companion app brings your quantum optimization dashboard to your pocket — with the same uncompromising security and privacy you expect.</p>
+    <div class="playstore-checklist">
+      <div class="check-item">
+        <div class="check-icon">✓</div>
+        <div>
+          <h4>Premium Store Listing</h4>
+          <p>High-fidelity screenshots, feature graphic, and a compelling description targeting enterprise quantum teams.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">✓</div>
+        <div>
+          <h4>Zero Data Collection Declaration</h4>
+          <p>Google Play Data Safety form completed to reflect Q-Optima's zero-telemetry, zero-tracking architecture.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">✓</div>
+        <div>
+          <h4>Biometric Authentication</h4>
+          <p>Fingerprint and face unlock enforced before dashboard access. No unauthorized eyes on your circuits.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">✓</div>
+        <div>
+          <h4>TLS 1.3 + Certificate Pinning</h4>
+          <p>All communication between the mobile app and your private Q-Optima instance is encrypted end-to-end.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">✓</div>
+        <div>
+          <h4>Code Obfuscation (R8/ProGuard)</h4>
+          <p>Proprietary algorithms are protected from reverse engineering in the published APK.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">✓</div>
+        <div>
+          <h4>Target API 34+ Compliance</h4>
+          <p>Built to the latest Android API requirements, ensuring smooth Play Store approval and future compatibility.</p>
+        </div>
+      </div>
+    </div>
+    <a class="btn-primary" href="https://play.google.com/store" target="_blank" style="display:inline-block;">View on Google Play (Coming Soon)</a>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- GITHUB -->
+<section class="github-section" id="github">
+  <div class="github-inner">
+    <div class="section-tag" style="display:block;text-align:center;margin-bottom:0.75rem;">The Builder</div>
+    <h2>Built by a Master.<br/>Proven by the Work.</h2>
+    <p>Q-Optima is not an accident. It is the result of relentless hard work, an obsession with learning, and a master's touch applied to every line of code and every pixel of design.</p>
+    <div class="github-card">
+      <div style="font-size:3rem;">👨‍💻</div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;">animemaker1982-tech</div>
+      <div style="color:var(--muted);font-size:0.95rem;max-width:500px;text-align:center;line-height:1.7;">
+        Developer. Creator. Builder. From AI-powered sales automation to immersive BCI/VR learning experiences for children — every project is approached with the same unwavering commitment to excellence.
+      </div>
+      <div class="github-stats">
+        <div class="github-stat"><div class="num">9+</div><div class="lbl">Repositories</div></div>
+        <div class="github-stat"><div class="num">5+</div><div class="lbl">Languages</div></div>
+        <div class="github-stat"><div class="num">2025</div><div class="lbl">Active Since</div></div>
+      </div>
+      <a class="btn-primary" href="https://github.com/animemaker1982-tech" target="_blank">View GitHub Profile</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>Ready to Optimize<br/>at the Quantum Level?</h2>
+  <p>Join 10,000+ circuits already optimized. Start free. Upgrade when you're ready to go elite.</p>
+  <div class="hero-actions" style="justify-content:center;">
+    <a class="btn-primary" href="https://share--q-optima-copy-12ed9134.base44.app" target="_blank">Launch Q-Optima Free</a>
+    <a class="btn-secondary" href="https://share--q-optima-copy-12ed9134.base44.app/pricing" target="_blank">View Premium Plans</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Q-Optima — Quantum Circuit Optimizer. All rights reserved. Governed under Australian law, Sydney, Australia.</p>
+  <p style="margin-top:0.5rem;">
+    <a href="https://share--q-optima-copy-12ed9134.base44.app/terms" target="_blank">Terms of Service</a> &nbsp;·&nbsp;
+    <a href="https://share--q-optima-copy-12ed9134.base44.app/privacy" target="_blank">Privacy Policy</a> &nbsp;·&nbsp;
+    <a href="https://github.com/animemaker1982-tech" target="_blank">GitHub</a> &nbsp;·&nbsp;
+    <a href="mailto:support@quantumoptimizer.com">Contact</a>
+  </p>
+</footer>
+
+<script>
+// ── PARTICLES ──
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+function createParticle() {
+  return {
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    r: Math.random() * 1.5 + 0.5,
+    alpha: Math.random() * 0.5 + 0.1
+  };
+}
+
+for (let i = 0; i < 120; i++) particles.push(createParticle());
+
+function drawParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(0,212,255,${p.alpha})`;
+    ctx.fill();
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+  });
+  // Draw connections
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 100) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0,212,255,${0.08 * (1 - dist/100)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+
+// ── TESTERS ──
+const testers = [
+  { name: "Dr. Elena Rostova", role: "Lead Quantum Architect", company: "Global Tech Innovations", industry: "Finance", initials: "ER", color: "#00d4ff" },
+  { name: "Marcus Chen", role: "VP of Engineering", company: "NextGen Aerospace", industry: "Aerospace", initials: "MC", color: "#7c3aed" },
+  { name: "Sarah Jenkins", role: "Director of R&D", company: "FinQuant Capital", industry: "Finance", initials: "SJ", color: "#10b981" },
+  { name: "Dr. Rajesh Kumar", role: "Chief Scientist", company: "BioPharma Solutions", industry: "Pharma", initials: "RK", color: "#f59e0b" },
+  { name: "Emily Stanton", role: "Senior Quantum Engineer", company: "Q-Systems Corp", industry: "Deep Tech", initials: "ES", color: "#ef4444" },
+  { name: "David O'Connor", role: "Head of IT Infrastructure", company: "MegaBank International", industry: "Banking", initials: "DO", color: "#3b82f6" },
+  { name: "Dr. Aisha Patel", role: "Principal Researcher", company: "NIST", industry: "Government", initials: "AP", color: "#ec4899" },
+  { name: "Thomas Wright", role: "CTO", company: "Logistics AI", industry: "Logistics", initials: "TW", color: "#14b8a6" },
+  { name: "Maria Garcia", role: "Lead Data Scientist", company: "EnergyGrid Analytics", industry: "Energy", initials: "MG", color: "#f97316" },
+  { name: "James Lee", role: "Director of Innovation", company: "AutoMotive Future", industry: "Automotive", initials: "JL", color: "#8b5cf6" },
+  { name: "Dr. Wei Zhang", role: "Professor of Quantum Physics", company: "Top-Tier University", industry: "Academia", initials: "WZ", color: "#06b6d4" },
+  { name: "Olivia Brown", role: "VP of Product Development", company: "SecureCom Networks", industry: "Security", initials: "OB", color: "#84cc16" },
+  { name: "Michael Davis", role: "CISO", company: "Global Insurance Co.", industry: "Insurance", initials: "MD", color: "#f43f5e" },
+  { name: "Sophia Martinez", role: "Lead Algorithmic Trader", company: "QuantEdge Funds", industry: "Finance", initials: "SM", color: "#a78bfa" },
+  { name: "Dr. Kevin Nguyen", role: "Head of Quantum Research", company: "ChemTech Industries", industry: "Chemistry", initials: "KN", color: "#34d399" },
+  { name: "Rachel Kim", role: "Director of Cloud Architecture", company: "CloudServe Inc.", industry: "Cloud", initials: "RK", color: "#fbbf24" },
+  { name: "William Taylor", role: "Senior Systems Analyst", company: "DefenseTech Solutions", industry: "Defence", initials: "WT", color: "#60a5fa" },
+  { name: "Dr. Chloe Anderson", role: "Principal Data Engineer", company: "HealthData Corp", industry: "Healthcare", initials: "CA", color: "#fb7185" },
+  { name: "Benjamin Moore", role: "VP of Strategy", company: "Telecom Innovations", industry: "Telecom", initials: "BM", color: "#c084fc" },
+  { name: "Dr. Laura Wilson", role: "Chief Technology Officer", company: "Quantum Startups Incubator", industry: "Venture", initials: "LW", color: "#2dd4bf" }
+];
+
+const grid = document.querySelector('.testers-grid');
+testers.forEach(t => {
+  grid.innerHTML += `
+    <div class="tester-card">
+      <div class="tester-avatar" style="background:${t.color}22;color:${t.color};border-color:${t.color}44;">${t.initials}</div>
+      <div class="tester-info">
+        <h4>${t.name}</h4>
+        <div class="tester-role">${t.role}</div>
+        <div class="tester-company">${t.company}</div>
+        <span class="tester-industry">${t.industry}</span>
+      </div>
+    </div>`;
+});
+
+// ── SCROLL ANIMATIONS ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.feature-card, .tester-card, .testimonial-card, .pricing-card, .privacy-card, .check-item').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
